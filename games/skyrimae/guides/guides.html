@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic page setup -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title -->
     <title>Guides - Skyrim AE Modding Hub</title>
+
+    <!-- Link to shared CSS stylesheet -->
     <link rel="stylesheet" href="../../../common_res/css/styles.css" />
 </head>
 <body>
+    <!-- Sidebar navigation and global search -->
     <div class="sidebar">
         <div>
+            <!-- Search input for searching all guides -->
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search in all guides..." oninput="searchAll()" />
             </div>
+
+            <!-- Navigation links -->
             <h2>Navigation</h2>
             <ul class="nav-list">
                 <li><a href="../../../index.html">> Home</a></li>
@@ -20,18 +29,27 @@
         </div>
     </div>
 
+    <!-- Main content area -->
     <div class="main">
-        <div class="folders">
-            <div class="folder" onclick="loadCategory('lokirstomb', this)">Lokir's Tomb</div>
-        </div>
+        <!-- Folder/category buttons will be generated here -->
+        <div class="folders"></div>
 
+        <!-- Content for guides loaded dynamically here -->
         <div class="section" id="content">
             <h1>Select a category to see guides.</h1>
-            <p>Guides are standalone resources focused on a single topic. They're ideal for refreshing knowledge or quickly learning a specific feature or workflow without going through an entire course. Think of them as reference material or mini-lessons for experienced users or returning modders.</p>
+            <p>
+                Guides are standalone resources focused on a single topic.
+                They're ideal for refreshing knowledge or quickly learning a specific feature or workflow without going through an entire course.
+                Think of them as reference material or mini-lessons for experienced users or returning modders.
+            </p>
         </div>
     </div>
 
+    <!-- Script loading content data (items) -->
     <script src="guides-items.js"></script>
+
+    <!-- Main logic script for handling categories, searches, filtering, etc. -->
     <script src="../../../common_res/js/scripts.js"></script>
+
 </body>
 </html>

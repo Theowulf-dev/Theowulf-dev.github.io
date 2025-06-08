@@ -1,3 +1,4 @@
+// Highlight search matches in text
 function highlightMatch(text, query) {
     if (!query) return text;
     const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -8,6 +9,23 @@ function highlightMatch(text, query) {
 let currentCategory = null;
 let selectedTags = [];
 
+// No contentItems declaration here — use the global one from guides-items.js
+
+// Dynamically create the category folder buttons
+function generateCategoryFolders() {
+    const foldersDiv = document.querySelector(".folders");
+    foldersDiv.innerHTML = ""; // clear any existing folders
+
+    for (const [catKey, catName] of Object.entries(categories)) {
+        const folderDiv = document.createElement("div");
+        folderDiv.classList.add("folder");
+        folderDiv.textContent = catName;
+        folderDiv.onclick = () => loadCategory(catKey, folderDiv);
+        foldersDiv.appendChild(folderDiv);
+    }
+}
+
+// Load guides in a selected category and display tags, search etc.
 function loadCategory(category, element) {
     selectedTags = [];
     currentCategory = category;
@@ -15,7 +33,7 @@ function loadCategory(category, element) {
     document.querySelectorAll('.folder').forEach(f => f.classList.remove('active'));
     element.classList.add('active');
 
-    const list = contentItems[category];
+    const list = contentItems[category] || [];
     const contentDiv = document.getElementById("content");
     const displayName = element.textContent;
 
@@ -55,6 +73,7 @@ function loadCategory(category, element) {
     contentDiv.innerHTML = html;
 }
 
+// Tag toggle for filtering
 function toggleTag(tag, element) {
     const index = selectedTags.indexOf(tag);
     if (index === -1) {
@@ -67,6 +86,7 @@ function toggleTag(tag, element) {
     searchCategory();
 }
 
+// Global search across all categories
 function searchAll() {
     const query = document.getElementById("searchInput").value.toLowerCase();
     const contentDiv = document.getElementById("content");
@@ -75,7 +95,7 @@ function searchAll() {
     if (!query) {
         if (currentCategory) {
             const folderElement = [...document.querySelectorAll('.folder')]
-                .find(f => f.getAttribute('onclick')?.includes(`'${currentCategory}'`));
+                .find(f => f.textContent === categories[currentCategory]);
             if (folderElement) {
                 loadCategory(currentCategory, folderElement);
                 return;
@@ -116,11 +136,12 @@ function searchAll() {
     contentDiv.innerHTML = html;
 }
 
+// Search within current category and tag filters
 function searchCategory() {
     const query = document.getElementById("categorySearchInput").value.toLowerCase();
     if (!currentCategory) return;
 
-    const list = contentItems[currentCategory];
+    const list = contentItems[currentCategory] || [];
     const gridDiv = document.getElementById("categoryItemsGrid");
 
     const filtered = list.filter(item => {
@@ -150,3 +171,13 @@ function searchCategory() {
     });
     gridDiv.innerHTML = html;
 }
+
+// Initialize the page once contentItems and categories are loaded
+function init() {
+    generateCategoryFolders();
+}
+
+// Run init on window load
+window.onload = () => {
+    init();
+};

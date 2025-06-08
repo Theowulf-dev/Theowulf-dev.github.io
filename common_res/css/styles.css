@@ -11,6 +11,59 @@ body.column-layout {
     align-items: center;
 }
 
+    body.item {
+        font-family: sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+    }
+
+        body.item footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        body.item h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+.container {
+    max-width: 800px;
+    margin: 3rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.feature-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.content-section {
+    line-height: 1.7;
+    font-size: 1rem;
+    color: #333;
+}
+
+ol {
+    padding-left: 1.5rem;
+}
+
 .sidebar {
     width: 200px;
     background: #222;
@@ -196,6 +249,7 @@ mark {
     border-radius: 16px;
     font-size: 0.8rem;
     margin-right: 6px;
+    margin-bottom: 6px;
     user-select: none;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s, transform 0.15s;

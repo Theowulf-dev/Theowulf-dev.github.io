@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic page setup -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title -->
     <title>Tutorials - Skyrim AE Modding Hub</title>
+
+    <!-- Link to shared CSS stylesheet -->
     <link rel="stylesheet" href="../../../common_res/css/styles.css" />
 </head>
 <body>
+    <!-- Sidebar navigation and global search -->
     <div class="sidebar">
         <div>
+            <!-- Search input for searching all tutorials -->
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search in all tutorials..." oninput="searchAll()" />
             </div>
+
+            <!-- Navigation links -->
             <h2>Navigation</h2>
             <ul class="nav-list">
                 <li><a href="../../../index.html">> Home</a></li>
@@ -20,21 +29,28 @@
         </div>
     </div>
 
+    <!-- Main content area -->
     <div class="main">
-        <div class="folders">
-            <div class="folder" onclick="loadCategory('lokirstomb', this)">Lokir's Tomb</div>
-        </div>
+        <!-- Folder/category buttons will be generated here -->
+        <div class="folders"></div>
 
+        <!-- Content for tutorials loaded dynamically here -->
         <div class="section" id="content">
             <h1>Select a category to see tutorials.</h1>
             <p>
                 Tutorials are structured, beginner-friendly learning paths.
-                They are designed for new modders and walk you through everything step-by-step. Building foundational skills, concepts, and tools in a logical sequence. Think of them as complete courses to get you started from beginning.
+                They are designed for new modders and walk you through everything step-by-step.
+                Building foundational skills, concepts, and tools in a logical sequence.
+                Think of them as complete courses to get you started from the beginning.
             </p>
         </div>
     </div>
 
+    <!-- Script loading content data (items) -->
     <script src="tutorials-items.js"></script>
+
+    <!-- Main logic script for handling categories, searches, filtering, etc. -->
     <script src="../../../common_res/js/scripts.js"></script>
+
 </body>
 </html>
