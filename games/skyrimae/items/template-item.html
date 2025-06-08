@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">Loading...</title>
+    <link rel="stylesheet" href="../common_res/css/styles.css" />
+</head>
+<body class="item">
+    <div class="container">
+        <a class="back-link" href="../tutorials.html">&larr; Back to Tutorials</a>
+
+        <h1 id="item-title">Loading...</h1>
+
+        <img class="feature-image" id="item-image" src="" alt="Feature Image" style="display: none;" />
+
+        <div class="tags" id="item-tags"></div>
+
+        <div class="content-section">
+            <p><strong>Overview:</strong></p>
+            <p>
+                Navigation meshes (navmeshes) define where NPCs and creatures can walk in your modded world.
+                In this tutorial, you�ll learn how to create navmeshes using the Creation Kit, making your
+                spaces fully navigable by AI.
+            </p>
+
+            <h2>Steps</h2>
+            <ol>
+                <li>Understand what navmeshes are and why they�re important.</li>
+                <li>Open your mod in the Creation Kit.</li>
+                <li>Use the Navmesh tool to mark traversable areas.</li>
+                <li>Optimize your navmesh using the cleanup tools.</li>
+                <li>Test with AI actors in your level.</li>
+            </ol>
+
+            <p>Be sure to save often and validate your navmesh data using the Creation Kit�s tools.</p>
+        </div>
+
+        <footer>Skyrim AE Modding Hub &copy; 2025</footer>
+    </div>
+
+    <!-- Load metadata -->
+    <script src="../tutorials-items.js"></script>
+    <script>
+    (function () {
+      const itemId = "navmesh-intro"; // unique ID per page
+      const allItems = Object.values(contentItems).flat();
+      const item = allItems.find(i => i.id === itemId);
+
+      if (!item) return;
+
+      document.title = `${item.title} | Skyrim AE Modding Hub`;
+      document.getElementById("item-title").textContent = item.title;
+
+      const img = document.getElementById("item-image");
+      img.src = item.image;
+      img.alt = item.title;
+      img.style.display = "block";
+
+      const tagContainer = document.getElementById("item-tags");
+      item.tags.forEach(tag => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = tag;
+        tagContainer.appendChild(span);
+      });
+    })();
+    </script>
+</body>
+</html>

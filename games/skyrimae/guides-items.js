@@ -4,8 +4,9 @@ const categories = {
 };
 
 const contentItems = {
-  appsandtools: [
-    {
+    appsandtools: [
+        {
+      id: "creation-kit",
       title: "Creation Kit",
       link: "items/creation-kit.html",
       description: "Install Creation Kit.",
