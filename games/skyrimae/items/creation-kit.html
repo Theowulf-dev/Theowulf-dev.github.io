@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="page-title">Loading...</title>
-    <link rel="stylesheet" href="../common_res/css/styles.css" />
+    <link rel="stylesheet" href="../../../common_res/styles.css" />
 </head>
 <body class="item">
     <div class="container">
-        <a class="back-link" href="../tutorials.html">&larr; Back to Tutorials</a>
+        <a class="back-link" href="../guides.html">&larr; Back to Guides</a>
 
         <h1 id="item-title">Loading...</h1>
 
@@ -40,31 +40,34 @@
     </div>
 
     <!-- Load metadata -->
-    <script src="../tutorials-items.js"></script>
+    <script src="../guides-items.js"></script>
+    <script src="../../../common_res/scripts.js"></script>
     <script>
-    (function () {
-      const itemId = "navmesh-intro"; // unique ID per page
-      const allItems = Object.values(contentItems).flat();
-      const item = allItems.find(i => i.id === itemId);
+        (function () {
+            // Get current page filename without extension
+            const fileName = window.location.pathname.split("/").pop().replace(".html", "");
 
-      if (!item) return;
+            const allItems = Object.values(contentItems).flat();
+            const item = allItems.find(i => i.id === fileName);
 
-      document.title = `${item.title} | Skyrim AE Modding Hub`;
-      document.getElementById("item-title").textContent = item.title;
+            if (!item) return;
 
-      const img = document.getElementById("item-image");
-      img.src = item.image;
-      img.alt = item.title;
-      img.style.display = "block";
+            document.title = `${item.title} | Skyrim AE Modding Hub`;
+            document.getElementById("item-title").textContent = item.title;
 
-      const tagContainer = document.getElementById("item-tags");
-      item.tags.forEach(tag => {
-        const span = document.createElement("span");
-        span.className = "tag";
-        span.textContent = tag;
-        tagContainer.appendChild(span);
-      });
-    })();
+            const img = document.getElementById("item-image");
+            img.src = item.image;
+            img.alt = item.title;
+            img.style.display = "block";
+
+            const tagContainer = document.getElementById("item-tags");
+            item.tags.forEach(tag => {
+                const span = document.createElement("span");
+                span.className = "tag";
+                span.textContent = tag;
+                tagContainer.appendChild(span);
+            });
+        })();
     </script>
 </body>
 </html>
