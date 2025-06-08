@@ -81,9 +81,13 @@ ol {
         text-align: center;
     }
 
-    .sidebar a {
+ a {
         color: inherit;
         text-decoration: none;
+    }
+
+    a:hover {
+        color: #ccc;
     }
 
 .nav-list {
@@ -104,10 +108,6 @@ ol {
         border-bottom: 1px solid #333;
         transition: color 0.3s;
     }
-
-        .nav-list a:hover {
-            color: #ccc;
-        }
 
 .search-container {
     margin: 1rem;

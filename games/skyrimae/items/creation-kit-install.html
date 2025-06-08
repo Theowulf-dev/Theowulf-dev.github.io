@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title will be updated dynamically by scripts.js based on current item -->
+    <title id="page-title">Loading...</title>
+
+    <!-- Link to common CSS styles -->
+    <link rel="stylesheet" href="../../../common_res/styles.css" />
+</head>
+<body class="item">
+    <div class="container">
+        <!-- Back link to guides overview page -->
+        <a class="back-link" href="../guides.html">&larr; Back to Guides</a>
+
+        <!-- Main item title, updated dynamically -->
+        <h1 id="item-title">Loading...</h1>
+
+        <!-- Feature image for the item, initially hidden and shown when loaded -->
+        <img class="feature-image" id="item-image" src="" style="display: none;" />
+
+        <!-- Container for item tags, populated dynamically -->
+        <div class="tags" id="item-tags"></div>
+
+        <!-- Static content section with tutorial overview and steps -->
+        <div class="content-section">
+            <h1>Installing Creation Kit via Steam</h1>
+
+            <p>In Steam Store, search for <strong>Creation Kit</strong>.</p>
+            <img src="creation-kit-install_res/steam_store_ck.png" />
+
+            <p>
+                Or open this link directly:
+                <a href="https://store.steampowered.com/app/1946180/Skyrim_Special_Edition_Creation_Kit/" target="_blank">
+                    <i>
+                        Skyrim Special Edition Creation Kit
+                    </i>
+                </a>
+            </p>
+
+            <p>Add it to your library and install.</p>
+            <p><em><img src="creation-kit-install_res/add_to_library_ck.png" /></em></p>
+
+            <p>Now go to your Steam Library. If you don't see Creation Kit there, make sure to check the <strong>Software</strong> option.</p>
+            <p><em>
+            <img src="creation-kit-install_res/steam_library.png" />
+                <br />
+            <img src="creation-kit-install_res/steam_library_software_option.png" />
+               </em></p>
+
+            <p>If you own Skyrim on Steam, you should be ready to go. Just launch it from Steam.</p>
+            <p><em><img src="creation-kit-install_res/ck_image.png" /></em></p>
+
+            <p>If you own Skyrim on another platform:</p>
+            <ul>
+                <li>Right-click on Creation Kit in your Library.</li>
+                <li>Hover over <strong>Manage</strong> and select <strong>Browse local files</strong>.</li>
+            </ul>
+            <p><em><img src="creation-kit-install_res/steam_manage_ck.png" /></em></p>
+
+            <p>When the Steam folder opens, copy and paste all contents inside your Skyrim game folder.</p>
+            <p><em><img src="creation-kit-install_res/ck_folder.png" style="block-size:60px" /></em></p>
+
+            <p>Now you can launch the Creation Kit via <code>CreationKit.exe</code>.</p>
+            <p><em><img src="creation-kit-install_res/ck_exe.png" style="block-size:60px" /></em></p>
+
+            <p>Make sure to create a shortcut and/or pin Creation Kit to your Taskbar for easy access.</p>
+        </div>
+
+        <footer>Skyrim AE Modding Hub 2025</footer>
+    </div>
+
+    <!-- Load metadata for all guide items, defining `contentItems` and related data -->
+    <script src="../guides-items.js"></script>
+
+    <!-- Load main scripts.js which:
+         - Dynamically sets page title, item title, image, and tags based on the current page file name
+         - Manages category folders, searching, and filtering (for other pages)
+    -->
+    <script src="../../../common_res/scripts.js"></script>
+</body>
+</html>

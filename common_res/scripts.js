@@ -189,13 +189,18 @@ function loadItemFromPage() {
     const titleEl = document.getElementById("item-title");
     if (titleEl) titleEl.textContent = item.title;
 
-    const img = document.getElementById("item-image");
-    if (img) {
-        img.src = item.image;
-        img.alt = item.title;
-        img.style.display = "block";
+const img = document.getElementById("item-image");
+if (img) {
+    let path = item.image;
+    
+    if (path.startsWith("items/")) { // checks for dubling of "items/items" in path
+        path = path.substring("items/".length);  // remove the first "items/"
     }
 
+    img.src = path;
+    img.alt = item.title;
+    img.style.display = "block";
+}
     const tagContainer = document.getElementById("item-tags");
     if (tagContainer) {
         tagContainer.innerHTML = ""; // clear existing tags

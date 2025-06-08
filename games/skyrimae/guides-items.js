@@ -6,12 +6,12 @@ const categories = {
 const contentItems = {
     appsandtools: [
         {
-      id: "creation-kit",
+      id: "creation-kit-install",
       title: "Creation Kit",
-      link: "items/creation-kit.html",
-      description: "Install Creation Kit.",
-      image: "https://via.placeholder.com/400x200?text=Creation+Kit",
-      tags: ["basics", "creation kit", "tools", "apps"]
+      link: "items/creation-kit-install.html",
+      description: "Install Creation Kit via Steam.",
+      image: "items/creation-kit-install_res/ck_image.png",
+      tags: ["Creation Kit", "Tools", "Apps", "Steam"]
         },
         //add more items here...
   ]
