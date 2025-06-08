@@ -177,7 +177,40 @@ function init() {
     generateCategoryFolders();
 }
 
-// Run init on window load
+// New function to load individual item based on page filename
+function loadItemFromPage() {
+    const fileName = window.location.pathname.split("/").pop().replace(".html", "");
+    const allItems = Object.values(contentItems).flat();
+    const item = allItems.find(i => i.id === fileName);
+
+    if (!item) return;
+
+    document.title = `${item.title} | Skyrim AE Modding Hub`;
+    const titleEl = document.getElementById("item-title");
+    if (titleEl) titleEl.textContent = item.title;
+
+    const img = document.getElementById("item-image");
+    if (img) {
+        img.src = item.image;
+        img.alt = item.title;
+        img.style.display = "block";
+    }
+
+    const tagContainer = document.getElementById("item-tags");
+    if (tagContainer) {
+        tagContainer.innerHTML = ""; // clear existing tags
+        item.tags.forEach(tag => {
+            const span = document.createElement("span");
+            span.className = "tag";
+            span.textContent = tag;
+            tagContainer.appendChild(span);
+        });
+    }
+}
+
+// Run init on window load and load item on DOMContentLoaded
 window.onload = () => {
     init();
 };
+
+document.addEventListener("DOMContentLoaded", loadItemFromPage);
