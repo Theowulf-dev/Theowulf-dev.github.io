@@ -31,6 +31,29 @@
                 text-decoration: none;
             }
 
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .nav-list li {
+                margin: 0.5rem 0;
+            }
+
+            .nav-list a {
+                display: block;
+                color: #fff;
+                text-decoration: none;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #333;
+                transition: color 0.3s;
+            }
+
+                .nav-list a:hover {
+                    color: #ccc;
+                }
+
         .main {
             flex: 1;
             padding: 2rem;
@@ -82,7 +105,9 @@
 
     <div class="sidebar">
         <h2>Navigation</h2>
-        <a href="../../index.html">> Home</a>
+        <ul class="nav-list">
+            <li><a href="../../index.html">> Home</a></li>
+        </ul>
     </div>
 
     <div class="main">
