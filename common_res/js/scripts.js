@@ -1,6 +1,4 @@
-// scripts.js
-
-const tutorials = {
+const contentItems = {
     lokirstomb: [
         {
             title: "Landscape Basics",
@@ -43,37 +41,37 @@ function loadCategory(category, element) {
     document.querySelectorAll('.folder').forEach(f => f.classList.remove('active'));
     element.classList.add('active');
 
-    const list = tutorials[category];
+    const list = contentItems[category];
     const contentDiv = document.getElementById("content");
     const displayName = element.textContent;
 
-    const uniqueTags = [...new Set(list.flatMap(tut => tut.tags))].sort();
+    const uniqueTags = [...new Set(list.flatMap(item => item.tags))].sort();
     const tagsHtml = uniqueTags.map(tag =>
         `<span class="tag" onclick="toggleTag('${tag}', this)">${tag}</span>`
     ).join(' ');
 
     let html = `
-        <div class="tutorial-list">
+        <div class="content-list">
             <div>
-                <h2 style="margin: 0;">${displayName} Tutorials</h2>
+                <h2 style="margin: 0;">${displayName}</h2>
                 <div class="search-container" style="width: 250px;">
-                    <input type="text" id="categorySearchInput" placeholder="Search in this category..." oninput="searchCategoryTutorials()" />
+                    <input type="text" id="categorySearchInput" placeholder="Search in this category..." oninput="searchCategory()" />
                 </div>
             </div>
             <div id="tag-filter-container" style="margin-bottom: 1rem;">
                 ${tagsHtml}
             </div>
-            <div class="card-grid" id="categoryTutorialsGrid">`;
+            <div class="card-grid" id="categoryItemsGrid">`;
 
-    list.forEach(tut => {
+    list.forEach(item => {
         html += `
-            <a href="${tut.link}" class="tutorial-card">
-                <img src="${tut.image}" alt="${tut.title}">
+            <a href="${item.link}" class="content-card">
+                <img src="${item.image}" alt="${item.title}">
                 <div class="card-text">
-                    <h3>${tut.title}</h3>
-                    <p>${tut.description}</p>
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
                     <div class="tags">
-                        ${tut.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
+                        ${item.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
                     </div>
                 </div>
             </a>`;
@@ -92,10 +90,10 @@ function toggleTag(tag, element) {
         selectedTags.splice(index, 1);
         element.classList.remove('selected');
     }
-    searchCategoryTutorials();
+    searchCategory();
 }
 
-function searchTutorials() {
+function searchAll() {
     const query = document.getElementById("searchInput").value.toLowerCase();
     const contentDiv = document.getElementById("content");
     let matches = [];
@@ -109,14 +107,14 @@ function searchTutorials() {
                 return;
             }
         }
-        contentDiv.innerHTML = `<p>Select a category to see tutorials.</p>`;
+        contentDiv.innerHTML = `<p>Select a category to see content.</p>`;
         return;
     }
 
-    for (let category in tutorials) {
-        const results = tutorials[category].filter(tut =>
-            tut.title.toLowerCase().includes(query) ||
-            tut.description.toLowerCase().includes(query)
+    for (let category in contentItems) {
+        const results = contentItems[category].filter(item =>
+            item.title.toLowerCase().includes(query) ||
+            item.description.toLowerCase().includes(query)
         );
         matches.push(...results);
     }
@@ -126,16 +124,16 @@ function searchTutorials() {
         return;
     }
 
-    let html = `<div class="tutorial-list"><h2>Search Results</h2><div class="card-grid">`;
-    matches.forEach(tut => {
+    let html = `<div class="content-list"><h2>Search Results</h2><div class="card-grid">`;
+    matches.forEach(item => {
         html += `
-            <a href="${tut.link}" class="tutorial-card">
-                <img src="${tut.image}" alt="${tut.title}">
+            <a href="${item.link}" class="content-card">
+                <img src="${item.image}" alt="${item.title}">
                 <div class="card-text">
-                    <h3>${highlightMatch(tut.title, query)}</h3>
-                    <p>${highlightMatch(tut.description, query)}</p>
+                    <h3>${highlightMatch(item.title, query)}</h3>
+                    <p>${highlightMatch(item.description, query)}</p>
                     <div class="tags">
-                        ${tut.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
+                        ${item.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
                     </div>
                 </div>
             </a>`;
@@ -144,16 +142,16 @@ function searchTutorials() {
     contentDiv.innerHTML = html;
 }
 
-function searchCategoryTutorials() {
+function searchCategory() {
     const query = document.getElementById("categorySearchInput").value.toLowerCase();
     if (!currentCategory) return;
 
-    const list = tutorials[currentCategory];
-    const gridDiv = document.getElementById("categoryTutorialsGrid");
+    const list = contentItems[currentCategory];
+    const gridDiv = document.getElementById("categoryItemsGrid");
 
-    const filtered = list.filter(tut => {
-        const matchesSearch = tut.title.toLowerCase().includes(query) || tut.description.toLowerCase().includes(query);
-        const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => tut.tags.includes(tag));
+    const filtered = list.filter(item => {
+        const matchesSearch = item.title.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
+        const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => item.tags.includes(tag));
         return matchesSearch && matchesTags;
     });
 
@@ -163,15 +161,15 @@ function searchCategoryTutorials() {
     }
 
     let html = '';
-    filtered.forEach(tut => {
+    filtered.forEach(item => {
         html += `
-            <a href="${tut.link}" class="tutorial-card">
-                <img src="${tut.image}" alt="${tut.title}">
+            <a href="${item.link}" class="content-card">
+                <img src="${item.image}" alt="${item.title}">
                 <div class="card-text">
-                    <h3>${highlightMatch(tut.title, query)}</h3>
-                    <p>${highlightMatch(tut.description, query)}</p>
+                    <h3>${highlightMatch(item.title, query)}</h3>
+                    <p>${highlightMatch(item.description, query)}</p>
                     <div class="tags">
-                        ${tut.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
+                        ${item.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
                     </div>
                 </div>
             </a>`;
