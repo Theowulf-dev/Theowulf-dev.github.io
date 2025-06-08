@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tutorials - Skyrim AE Modding Hub</title>
     <style>
+        /* [All your existing CSS stays unchanged] */
+
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
@@ -80,25 +82,44 @@
             background: #eee;
             padding: 1rem;
             border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
         }
 
         .folder {
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
+            padding: 0.75rem 1rem;
             background: #ddd;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 0 rgba(0,0,0,0);
+            user-select: none;
+            font-weight: 600;
+            color: #444;
+            border: 2px solid transparent;
         }
 
-            .folder:hover,
-            .folder.active {
+            .folder:hover {
                 background: #ccc;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+                border-color: #4a90e2;
+                color: #222;
+            }
+
+            .folder.active {
+                background: #4a90e2;
+                color: white;
+                box-shadow: 0 4px 12px rgba(74,144,226,0.6);
+                border-color: #2a5db0;
             }
 
         #content {
             flex: 1;
             padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
         }
 
         .card-grid {
@@ -156,29 +177,59 @@
 
         .tag {
             display: inline-block;
-            background-color: #4a90e2;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
+            background-color: #ccc;
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.8rem;
             margin-right: 6px;
             user-select: none;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s, transform 0.15s;
         }
 
-            .tag.selected {
-                background-color: #2a5db0;
+            .tag:hover {
+                background-color: #bbb;
+                color: #333;
+                transform: scale(1.05);
             }
+
+            .tag.selected {
+                background-color: #4a90e2;
+                color: white;
+                box-shadow: 0 0 8px #2a5db0aa;
+            }
+
+        #categorySearchInput {
+            padding: 0.5rem 0.75rem;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+            #categorySearchInput:focus {
+                outline: none;
+                border-color: #4a90e2;
+                box-shadow: 0 0 8px rgba(74,144,226,0.5);
+                background: #fff;
+            }
+
+        .tutorial-list > div:first-child {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
-
-    <!-- Sidebar -->
     <div class="sidebar">
         <div>
             <h2>Navigation</h2>
-            <!-- Global Search Bar -->
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search tutorials..." oninput="searchTutorials()" />
             </div>
@@ -189,14 +240,11 @@
         </div>
     </div>
 
-    <!-- Main Area -->
     <div class="main">
-        <!-- Folder-style Categories -->
         <div class="folders">
             <div class="folder" onclick="loadCategory('lokirstomb', this)">Lokir's Tomb</div>
         </div>
 
-        <!-- Content Area -->
         <div id="content">
             <p>Select a category to see tutorials.</p>
         </div>
@@ -229,7 +277,6 @@
             ]
         };
 
-        // Highlight matching text with <mark> tags
         function highlightMatch(text, query) {
             if (!query) return text;
             const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -237,12 +284,12 @@
             return text.replace(regex, '<mark>$1</mark>');
         }
 
-        let currentCategory = null; // store currently opened category key (e.g. 'lokirstomb')
-        let selectedTags = []; // store selected tags for filtering
+        let currentCategory = null;
+        let selectedTags = [];
 
         function loadCategory(category, element) {
-            selectedTags = []; // reset selected tags when loading a new category
-            currentCategory = category;  // remember the selected category
+            selectedTags = [];
+            currentCategory = category;
 
             document.querySelectorAll('.folder').forEach(f => f.classList.remove('active'));
             element.classList.add('active');
@@ -251,28 +298,24 @@
             const contentDiv = document.getElementById("content");
             const displayName = element.textContent;
 
-            // Get unique tags for the category
             const uniqueTags = [...new Set(list.flatMap(tut => tut.tags))].sort();
-
-            // Build tag buttons
             const tagsHtml = uniqueTags.map(tag =>
                 `<span class="tag" onclick="toggleTag('${tag}', this)">${tag}</span>`
             ).join(' ');
 
-            // Add category-specific search bar, tag filter, and tutorial grid container
             let html = `
                     <div class="tutorial-list">
-                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <div>
                             <h2 style="margin: 0;">${displayName} Tutorials</h2>
-                            <div class="search-container" style="margin-left: 1rem; width: 250px;">
-                                <input type="text" id="categorySearchInput" placeholder="Search in this category..." oninput="searchCategoryTutorials()" style="width: 100%;" />
+                            <div class="search-container" style="width: 250px;">
+                                <input type="text" id="categorySearchInput" placeholder="Search in this category..." oninput="searchCategoryTutorials()" />
                             </div>
                         </div>
                         <div id="tag-filter-container" style="margin-bottom: 1rem;">
                             ${tagsHtml}
                         </div>
-                        <div class="card-grid" id="categoryTutorialsGrid">
-                `;
+                        <div class="card-grid" id="categoryTutorialsGrid">`;
+
             list.forEach(tut => {
                 html += `
                         <a href="${tut.link}" class="tutorial-card">
@@ -281,36 +324,34 @@
                                 <h3>${tut.title}</h3>
                                 <p>${tut.description}</p>
                                 <div class="tags">
-                                  ${tut.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+                                    ${tut.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
                                 </div>
                             </div>
                         </a>`;
             });
-            html += `</div></div>`;
 
+            html += `</div></div>`;
             contentDiv.innerHTML = html;
         }
 
         function toggleTag(tag, element) {
-            const tagIndex = selectedTags.indexOf(tag);
-            if (tagIndex === -1) {
+            const index = selectedTags.indexOf(tag);
+            if (index === -1) {
                 selectedTags.push(tag);
                 element.classList.add('selected');
             } else {
-                selectedTags.splice(tagIndex, 1);
+                selectedTags.splice(index, 1);
                 element.classList.remove('selected');
             }
-            searchCategoryTutorials(); // Refresh results based on new filter
+            searchCategoryTutorials();
         }
 
-        // Global search (sidebar)
         function searchTutorials() {
             const query = document.getElementById("searchInput").value.toLowerCase();
             const contentDiv = document.getElementById("content");
             let matches = [];
 
             if (!query) {
-                // If no search text and a category is open, reload that category
                 if (currentCategory) {
                     const folderElement = [...document.querySelectorAll('.folder')]
                         .find(f => f.getAttribute('onclick')?.includes(`'${currentCategory}'`));
@@ -323,7 +364,6 @@
                 return;
             }
 
-            // Search logic across all categories
             for (let category in tutorials) {
                 const results = tutorials[category].filter(tut =>
                     tut.title.toLowerCase().includes(query) ||
@@ -346,7 +386,7 @@
                                 <h3>${highlightMatch(tut.title, query)}</h3>
                                 <p>${highlightMatch(tut.description, query)}</p>
                                 <div class="tags">
-                                  ${tut.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+                                    ${tut.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
                                 </div>
                             </div>
                         </a>`;
@@ -355,7 +395,6 @@
             contentDiv.innerHTML = html;
         }
 
-        // Category-specific search (inside loaded category only)
         function searchCategoryTutorials() {
             const query = document.getElementById("categorySearchInput").value.toLowerCase();
             if (!currentCategory) return;
@@ -363,7 +402,6 @@
             const list = tutorials[currentCategory];
             const gridDiv = document.getElementById("categoryTutorialsGrid");
 
-            // Filter tutorials by title or description AND by tags if any are selected
             const filtered = list.filter(tut => {
                 const matchesSearch = tut.title.toLowerCase().includes(query) || tut.description.toLowerCase().includes(query);
                 const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => tut.tags.includes(tag));
@@ -375,7 +413,6 @@
                 return;
             }
 
-            // Render filtered tutorials with highlight
             let html = '';
             filtered.forEach(tut => {
                 html += `
@@ -385,7 +422,7 @@
                                 <h3>${highlightMatch(tut.title, query)}</h3>
                                 <p>${highlightMatch(tut.description, query)}</p>
                                 <div class="tags">
-                                  ${tut.tags.map(tag => `<span class="tag">${tag}</span>`).join(' ')}
+                                    ${tut.tags.map(tag => `<span class="tag${selectedTags.includes(tag) ? ' selected' : ''}">${tag}</span>`).join(' ')}
                                 </div>
                             </div>
                         </a>`;
